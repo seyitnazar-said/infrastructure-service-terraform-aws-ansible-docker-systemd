@@ -1,0 +1,9 @@
+- name: Main playbook
+  hosts: instance
+  gather_facts: yes
+  any_errors_fatal: true
+  become: true
+  become_user: root
+
+  roles:
+    - docker-service

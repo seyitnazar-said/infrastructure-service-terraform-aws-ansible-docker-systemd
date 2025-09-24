@@ -1,0 +1,6 @@
+---
+# defaults file for docker-service
+image_name: skillbox/app
+image_version: v1
+container_name: app
+port: 8080

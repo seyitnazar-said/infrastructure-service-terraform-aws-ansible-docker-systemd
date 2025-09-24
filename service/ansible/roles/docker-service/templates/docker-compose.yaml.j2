@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  app:
+    image: {{ image_name }}:{{ image_version }}
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: {{ container_name }}
+    restart: always
+    ports:
+      - '{{ port }}:8080'

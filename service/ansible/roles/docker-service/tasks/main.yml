@@ -1,0 +1,39 @@
+---
+# tasks file for docker-service
+- name: create a project directory
+  ansible.builtin.file:
+    path: /opt/docker_project
+    state: directory
+    mode: 0755
+    recurse: true
+
+- name: copy a project directory
+  ansible.builtin.copy:
+    src: files/project
+    dest: /opt/docker_project/
+
+- name: copy docker compose file
+  template:
+    src: docker-compose.yaml.j2
+    dest: /opt/docker_project/project/docker-compose.yaml
+    mode: 0644
+
+- name: copy Dockerfile
+  template:
+    src: Dockerfile.j2
+    dest: /opt/docker_project/project/Dockerfile
+    mode: 0644
+
+- name: copy docker service file
+  template:
+    src: skillbox.service.j2
+    dest: /etc/systemd/system/skillbox.service
+    mode: 0644
+
+- name: create and start docker compose service
+  command: docker compose -f /opt/docker_project/project/docker-compose.yaml up -d
+  tags: create
+  notify:
+    - reload skillbox service
+    - enable skillbox service
+    - start skillbox service

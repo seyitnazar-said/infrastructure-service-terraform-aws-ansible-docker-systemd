@@ -1,0 +1,17 @@
+---
+# handlers file for docker-service
+- name: reload skillbox service
+  service:
+    name: skillbox.service
+    daemon-reload: true
+
+- name: enable skillbox service
+  service:
+    name: skillbox.service
+    enabled: true  
+
+- name: start skillbox service
+  service:
+    name: skillbox.service
+    state: started
+
